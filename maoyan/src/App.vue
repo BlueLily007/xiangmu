@@ -36,7 +36,7 @@ export default {
     flex-direction: column;
     font-size: 14px;
     text-align: center;
-    color: cadetblue
+    color: black;
   }
   .header{
     width: 100%;
@@ -62,4 +62,5 @@ export default {
     display: flex;
     justify-content: space-around;
   }
+
 </style>

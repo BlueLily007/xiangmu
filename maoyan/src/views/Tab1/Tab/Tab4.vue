@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>第一个</h1>
     <div v-for="(item, index) in arr" :key="index" class="box">
       <ul>
         <li><img :src="item.img" alt=""></li>
-        <li><h2>{{item.nm}}</h2></li>
+        <li><h2>{{item.star}}</h2></li>
       </ul>
     </div>
   </div>
@@ -26,12 +25,23 @@ export default {
         console.log(res.data)
         this.arr = res.data.list.coming
       })
-    }   
+    },
   },
 }
 </script>
 
 <style lang="scss">
+// @import url('../assets/iconfont/iconfont.css');
+  .tab{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    color: black;
+    justify-content: space-between;
+    span{
+      text-align: center;
+    }
+  }
   .box{
     width: 100%;
     display: flex;
