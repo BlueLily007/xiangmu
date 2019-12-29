@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from '../store/index'
 Vue.use(VueRouter)
 
 const routes = [
@@ -32,7 +32,10 @@ const routes = [
   {
     path: '/Tab2',
     name: 'Tab2',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Tab2/Tab2.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Tab2/Tab2.vue'),
+    meta:{
+      requireAuth:true
+    }
   },
   {
     path: '/Tab3',
@@ -46,5 +49,23 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (store.state.token) {
+      next()
+    } else {
+      next({
+        path: '/Tab2',
+        query: {
+          path: to.fullPath
+        }
+      })
+    }
+  } else {
+    next()
+  }
+})
+
 
 export default router

@@ -1,30 +1,46 @@
 <template>
   <div>
-    <van-swipe :autoplay="1000" indicator-color="white">
-      <van-swipe-item><img src="img/1.jpg" alt="">1</van-swipe-item>
-      <van-swipe-item><img src="img/2.jpg" alt="">2</van-swipe-item>
-      <van-swipe-item><img src="img/3.jpg" alt="">3</van-swipe-item>
-      <van-swipe-item><img src="img/4.jpg" alt="">4</van-swipe-item>
-      <van-swipe-item><img src="img/5.jpg" alt="">5</van-swipe-item>
-    </van-swipe>
+    账号：<input type="text" v-model="username"><br>
+    密码：<input type="text" v-model="pwd"><br>
+    <button @click="loginEvent">登录</button>
   </div>
 </template>
 
 <script>
 export default {
-  
+  data() {
+    return {
+      username:'',
+      pwd:''
+    }
+  },
+  methods: {
+    loginEvent(){
+      this.$http.get('/api/login',{
+        params:{
+          username:this.username,
+          pwd:this.pwd
+        }
+      }).then(res=>{
+        console.log(res.data)
+        if(res.data.errCode===-1){
+          // localStorage.setItem('key',res.data.token);
+          this.$router.push({
+            path:'/Tab2'
+          })
+        }else{
+          alert('错误')
+        }
+      })
+    }
+  },
 }
 </script>
 
 <style lang="scss">
-.van-swipe__track{
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: space-between;
-}
-img{
-  width: 100%;
-  height: 200px;
-}
+  input {
+    width: 80%;
+    border:1px solid black;
+    line-height: 35px;
+  }
 </style>
